@@ -1,0 +1,13 @@
+{
+    "name": "data-driven-ability-system",
+    "version": "1.0.0",
+    "description": "Data driven ability system for Unity, allowing for flexible and modular game mechanics. Perfect for API-driven game development.",
+    "displayName": "Data Driven Ability System",
+    "unity": "2021.3",
+    "dependencies": {},
+    "author": {
+        "name": "Vincent Philippe",
+        "email": "vincentcharles.philippe@gmail.com",
+        "url": ""
+    }
+}
