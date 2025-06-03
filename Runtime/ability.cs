@@ -1,19 +1,22 @@
-public interface IAbilityEffect
+namespace DataDrivenAbilitySystem
 {
-    public void Apply(IEffectContext context);
-}
-
-public class Ability
-{
-    public string Name { get; set; } = "";
-    public List<(IEffectContext Context, IAbilityEffect Effect)> Effects { get; set; } = new();
-    public int Power { get; set; }
-    public void Execute(Unit caster, Unit target)
+    public interface IAbilityEffect
     {
-        Effects.ForEach(item =>
+        public void Apply(IEffectContext context);
+    }
+
+    public class Ability
+    {
+        public string Name { get; set; } = "";
+        public List<(IEffectContext Context, IAbilityEffect Effect)> Effects { get; set; } = new();
+        public int Power { get; set; }
+        public void Execute(Unit caster, Unit target)
         {
-            item.Context.Apply(caster, target, Power);
-            item.Effect.Apply(item.Context);
-        });
+            Effects.ForEach(item =>
+            {
+                item.Context.Apply(caster, target, Power);
+                item.Effect.Apply(item.Context);
+            });
+        }
     }
 }
