@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DataDrivenAbilitySystem
 {
     public class Unit
@@ -19,5 +21,6 @@ namespace DataDrivenAbilitySystem
         {
             return Health > 0;
         }
+        public List<IAbility> Abilities { get; set; }
     }
 }

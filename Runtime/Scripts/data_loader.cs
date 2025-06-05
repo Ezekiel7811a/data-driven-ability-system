@@ -20,9 +20,9 @@ namespace DataDrivenAbilitySystem
         /// Usage: StartCoroutine(AbilityService.LoadAbilitiesFromJson(
         ///             "abilities.json", abilities => { /* use them */ }));
         /// </summary>
-        public static IEnumerator LoadAbilitiesFromJson(
+        public static IEnumerator LoadAbilitiesFromJson<T>(
             string filename,
-            Action<List<Ability>> onComplete)
+            Action<List<IAbility>> onComplete) where T : IAbility, new()
         {
             string path = System.IO.Path.Combine(Application.streamingAssetsPath, filename);
             UnityWebRequest www = UnityWebRequest.Get(path);
@@ -31,7 +31,7 @@ namespace DataDrivenAbilitySystem
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError($"Error loading abilities: {www.error}");
-                onComplete?.Invoke(new List<Ability>());
+                onComplete?.Invoke(new List<IAbility>());
                 yield break;
             }
 
@@ -50,14 +50,14 @@ namespace DataDrivenAbilitySystem
                     throw new Exception("No abilities found in JSON.");
 
                 var abilities = dtoList.abilities
-                    .Select(ConvertToAbility)
+                    .Select(ConvertToAbility<T>)
                     .ToList();
-                onComplete?.Invoke(abilities);
+                onComplete?.Invoke(abilities.Cast<IAbility>().ToList());
             }
             catch (Exception ex)
             {
                 Debug.LogError($"Error parsing abilities JSON: {ex}");
-                onComplete?.Invoke(new List<Ability>());
+                onComplete?.Invoke(new List<IAbility>());
             }
         }
 
@@ -92,17 +92,16 @@ namespace DataDrivenAbilitySystem
             return (context, effect);
         }
 
-        private static Ability ConvertToAbility(AbilityDTO dto)
+        private static T ConvertToAbility<T>(AbilityDTO dto) where T : IAbility, new()
         {
-            var effects = dto.Effects
-                .Select(ConvertToContextEffect)
-                .ToList();
-            return new Ability
-            {
-                Name = dto.Name,
-                Power = dto.Power,
-                Effects = effects
-            };
+            // T must have a public parameterless ctor
+            var ability = new T();
+            ability.Name = dto.Name;
+            ability.Power = dto.Power;
+            ability.Effects = dto.Effects
+              .Select(ConvertToContextEffect)
+              .ToList();
+            return ability;
         }
     }
 }

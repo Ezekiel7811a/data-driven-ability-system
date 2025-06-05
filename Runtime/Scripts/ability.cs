@@ -10,10 +10,10 @@ namespace DataDrivenAbilitySystem
         public void Apply(IEffectContext context);
     }
 
-    public class Ability
+    public interface IAbility
     {
-        public string Name { get; set; } = "";
-        public List<(IEffectContext Context, IAbilityEffect Effect)> Effects { get; set; } = new();
+        public string Name { get; set; }
+        public List<(IEffectContext Context, IAbilityEffect Effect)> Effects { get; set; }
         public int Power { get; set; }
         public void Execute(Unit caster, Unit target)
         {

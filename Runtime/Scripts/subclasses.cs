@@ -1,5 +1,13 @@
+using System.Collections.Generic;
+
 namespace DataDrivenAbilitySystem
 {
+    public class Ability : IAbility
+    {
+        public string Name { get; set; }
+        public List<(IEffectContext Context, IAbilityEffect Effect)> Effects { get; set; }
+        public int Power { get; set; }
+    }
     public class SelfContext : IEffectContext
     {
         public Unit Caster { get; private set; } = null!;

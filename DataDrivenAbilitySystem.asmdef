@@ -1,6 +1,6 @@
 {
-    "name": "DataDrivenAbilitySystem.Runtime",
-    "rootNamespace": "",
+    "name": "DataDrivenAbilitySystem",
+    "rootNamespace": "DataDrivenAbilitySystem",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
