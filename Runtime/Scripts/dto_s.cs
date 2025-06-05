@@ -1,14 +1,14 @@
 using System;
-using System.IO;
-using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
+
 namespace DataDrivenAbilitySystem
 {
     public class AbilityDTO
     {
         public string Name { get; set; } = "";
-        public int? Power { get; set; }
+        public int Power { get; set; }
         public List<EffectDTO> Effects { get; set; } = new();
     }
 

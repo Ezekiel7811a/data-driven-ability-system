@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-using UnityEngine;
 namespace DataDrivenAbilitySystem
 {
     public class SelfContext : IEffectContext
@@ -40,7 +35,6 @@ namespace DataDrivenAbilitySystem
             int damage = context.Power;
 
             target.TakeDamage(damage);
-            Console.WriteLine($"{caster.Name} uses {nameof(DamageEffect)} on {target.Name}, dealing {damage} damage.");
         }
     }
 }
